@@ -1,0 +1,98 @@
+.glitch-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.glitch-overlay.active {
+  pointer-events: all;
+}
+
+.glitch-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  animation: scanlines 0.1s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+.glitch-block {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: glitchBlock 0.5s ease forwards;
+}
+
+@keyframes glitchBlock {
+  0% { opacity: 0.15; transform: translateX(-5px) scaleX(1.02); }
+  20% { opacity: 0.05; transform: translateX(5px) scaleX(0.98); }
+  40% { opacity: 0.12; transform: translateX(-3px) scaleX(1.01); }
+  60% { opacity: 0.03; transform: translateX(3px); }
+  80% { opacity: 0.08; transform: translateX(-1px); }
+  100% { opacity: 0; transform: translateX(0); }
+}
+
+.glitch-rgb {
+  position: absolute;
+  inset: 0;
+}
+
+.glitch-rgb::before,
+.glitch-rgb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--section-bg, #000);
+  opacity: 0;
+}
+
+[data-mode="engineer"] .glitch-rgb::before {
+  background: #00f;
+  mix-blend-mode: screen;
+  animation: rgbShift 0.5s ease forwards;
+}
+
+[data-mode="designer"] .glitch-rgb::before {
+  background: #f0f;
+  mix-blend-mode: screen;
+  animation: rgbShift 0.5s ease forwards;
+}
+
+[data-mode="engineer"] .glitch-rgb::after {
+  background: #0ff;
+  mix-blend-mode: screen;
+  animation: rgbShift2 0.5s ease forwards;
+}
+
+[data-mode="designer"] .glitch-rgb::after {
+  background: #ff0;
+  mix-blend-mode: screen;
+  animation: rgbShift2 0.5s ease forwards;
+}
+
+@keyframes rgbShift {
+  0% { opacity: 0.3; transform: translateX(-8px); }
+  30% { opacity: 0.1; transform: translateX(8px); }
+  60% { opacity: 0.05; transform: translateX(-4px); }
+  100% { opacity: 0; transform: translateX(0); }
+}
+
+@keyframes rgbShift2 {
+  0% { opacity: 0.3; transform: translateX(8px); }
+  30% { opacity: 0.1; transform: translateX(-8px); }
+  60% { opacity: 0.05; transform: translateX(4px); }
+  100% { opacity: 0; transform: translateX(0); }
+}
